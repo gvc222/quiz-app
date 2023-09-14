@@ -17,8 +17,8 @@ button {
 }
 
 .question-count {
-  margin-top: 20%;
-  margin-bottom: 20%;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 .app {
@@ -27,14 +27,41 @@ button {
   height: 50%;
   background-color: black;
   border-radius: 2%;
+  box-shadow: 5px 5px rgba(166, 166, 166, 0.2);
 }
 
 
-.question-section, .question-text, h1, .answer-section, .question-count, .score  {
+.question-section, .question-text, h3, .answer-section, .question-count, .score, .reset  {
   background-color: black;
 }
 
 .score {
   padding-top: 10%;
   margin-bottom: 20%;
+}
+
+#title {
+  background-color: black;
+  color:aqua;
+  margin-top: 20%;
+  font-size: 40px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+}
+
+.score-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  background-color: black;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  
+}
+
+#reset {
+  border-radius: 5%;
+  width: 200%;
+  background-color:rgb(87, 58, 173)
 }
