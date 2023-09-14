@@ -2,11 +2,21 @@ import React, {useState} from 'react'
 import './App.css';
 
 function App() {
-  const [questionCount, setQuestionCount] = useState(0)
+  const [questionCount, setQuestionCount] = useState(1)
   
-  handleClick = () => {
-    setQuestionCount += 1
+  const [score, setScore] = useState(0)
+
+  const handleClick = (isCorrect) => {
+    if (isCorrect) {
+      setScore(score + 1)
+    }
+    
+    if (questionCount <= questions.length){
+    setQuestionCount(questionCount + 1)
+  } else {
+    alert(`You have reached the end of the quiz and your score is: ${score} out of ${questions.length}!`)
   }
+}
   const questions = [
     {
       questionText: "Is it Berenstein Bears or Berenstain Bears?",
@@ -16,7 +26,7 @@ function App() {
       ]
     },
     {
-      questionText: "Is it The Flinsstones or The Flintstones?",
+      questionText: "Is it The Flinstones or The Flintstones?",
       answerOptions: [
         {answerText: "The Flinstones", isCorrect: false},
         {answerText: "The Flintstones", isCorrect: true}
@@ -67,16 +77,19 @@ function App() {
   ];
   return (
    <div className="app">
-    <div className="question-section">
+    {(questionCount <= 8) ? <div className="question-section">
       <div className="question-count">
-        <span>Questions1</span>/{questions.length}
+        <h1>Question: {questionCount}/{questions.length}</h1>
       </div>
       <div className="question-text">{questions[questionCount].questionText}</div>
       <div className="answer-section">
-        <button onClick={null}>{questions[questionCount].answerOptions[0].answerText}</button>
-        <button onClick={null}>{questions[questionCount].answerOptions[1].answerText}</button>  
+        {questions[questionCount-1].answerOptions.map((answerOption) => <button onClick={() =>handleClick(answerOption.isCorrect)}>{answerOption.answerText}</button>)}
+        <div className='score'>Your current score is: {score}</div>
       </div>
     </div>
+    :
+    <div>You have reached the end of the quiz and your score is: {score} out of {questions.length}!</div>
+}
    </div>  
   )
 }
