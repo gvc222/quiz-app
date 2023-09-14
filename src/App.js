@@ -2,19 +2,25 @@ import React, {useState} from 'react'
 import './App.css';
 
 function App() {
-  const [questionCount, setQuestionCount] = useState(1)
-  
-  const [score, setScore] = useState(0)
+  const [questionCount, setQuestionCount] = useState(1);
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
 
+  const reset = () => {
+    setQuestionCount(1);
+    setScore(0);
+    setShowScore(false);
+  }
   const handleClick = (isCorrect) => {
     if (isCorrect) {
+      alert('Your answer is correct!')
       setScore(score + 1)
     }
     
-    if (questionCount <= questions.length){
+    if (questionCount < questions.length){
     setQuestionCount(questionCount + 1)
   } else {
-    alert(`You have reached the end of the quiz and your score is: ${score} out of ${questions.length}!`)
+    setShowScore(true);
   }
 }
   const questions = [
@@ -77,18 +83,22 @@ function App() {
   ];
   return (
    <div className="app">
-    {(questionCount <= 8) ? <div className="question-section">
+    {(showScore === true) ? <div className='score-section'>You scored {score} out of {questions.length}! 
+    <div className='reset'><button id="reset" onClick={reset}>Play Again?</button></div></div>
+     :
+      (
+      <div className="question-section">
+        <div id='title'>Pop Quiz!</div>
       <div className="question-count">
-        <h1>Question: {questionCount}/{questions.length}</h1>
+        <h3>Question: {questionCount}/{questions.length}</h3>
       </div>
-      <div className="question-text">{questions[questionCount].questionText}</div>
+      <div className="question-text">{questions[questionCount-1].questionText}</div>
       <div className="answer-section">
         {questions[questionCount-1].answerOptions.map((answerOption) => <button onClick={() =>handleClick(answerOption.isCorrect)}>{answerOption.answerText}</button>)}
         <div className='score'>Your current score is: {score}</div>
       </div>
     </div>
-    :
-    <div>You have reached the end of the quiz and your score is: {score} out of {questions.length}!</div>
+      )
 }
    </div>  
   )
